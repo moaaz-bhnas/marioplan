@@ -6,9 +6,33 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  background: #95E8F3 url(/img/mario-bg.png) no-repeat bottom / 100%;
+  min-height: 100vh;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+form {
+  padding: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+form h5,
+form button {
+  margin: 1rem 0;
+}
+
+input:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]){
+  border-color: #ec407a!important;
+  box-shadow: none!important;
+}
+
+input:not(.browser-default):focus:not([readonly]) + label,
+textarea.materialize-textarea:focus:not([readonly]) + label {
+  color: #ec407a !important;
 }

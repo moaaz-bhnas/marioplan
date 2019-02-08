@@ -1,12 +1,15 @@
 import React from 'react';
 import ProjectSummary from './ProjectSummary';
 
-const ProjectList = () => (
+const ProjectList = ({projects}) => (
   <section className="project-list section">
     <ul>
-      <ProjectSummary />
-      <ProjectSummary />
-      <ProjectSummary />
+      {
+        projects.length && 
+        projects.map(project => (
+          <ProjectSummary key={project.id} project={project} />
+        ))
+      }
     </ul>
   </section>
 );
