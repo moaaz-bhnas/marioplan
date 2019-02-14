@@ -14,8 +14,11 @@ export const createProject = project => {
 			authorLastName: 'Bhnas',
 			authorId: '228',
 			createdAt: new Date()
+		}).then(() => {
+			dispatch({ type: 'CREATE_PROJECT', project });
+		}).catch(err => {
+			dispatch({ type: 'CREATE_PROJECT_ERROR', err });
 		})
 		// Make async call to the database
-		dispatch({ type: 'CREATE_PROJECT', project })
 	}
 }
