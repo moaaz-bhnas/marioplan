@@ -13,6 +13,6 @@ var config = {
 };
 
 firebase.initializeApp(config); // Connect
-firebase.firestore().settings({ timeStampsInSnapshot: true }); // Just an update :D
+firebase.firestore().settings({}); // Just an update :D
 
 export default firebase;

@@ -4,6 +4,10 @@ import ProjectList from '../projects/ProjectList';
 // A function that, when called, returns a higher order component.
 // It gives the component super powers (the ability to connect to redux store)
 import { connect } from 'react-redux'; 
+// A higher order component that lets us specify which collection is needed
+// From 'react-redux-fb' cause we're connecting react now
+import { firestoreConnect } from 'react-redux-firebase';
+import { compose } from 'redux';
 
 class Dashboard extends Component {
   state = {  }
@@ -28,9 +32,21 @@ class Dashboard extends Component {
 // This function has acssess to the store's state
 const mapStateToProps = state => {
   // This object tells which props we need from the store
-  return {
-    projects: state.project.projects
+  if(state.firestore.ordered.projects) {
+    return{
+      projects: state.firestore.ordered.projects
+    }
+  } else {
+    return{
+      projects: []
+    }
   }
 }
 
-export default connect(mapStateToProps)(Dashboard);
+// This is how we use two higher order components
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect([
+    { collection: 'projects' }
+  ])
+)(Dashboard);
