@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { createProject } from '../../store/actions/projectActions';
 
 class CreateProject extends Component {
   state = { 
@@ -12,7 +14,8 @@ class CreateProject extends Component {
   }
   handleSubmit = e => {
     e.preventDefault();
-    console.log(this.state);
+    this.props.createProject(this.state);
+    // console.log(this.state);
   }
   render() {
     return (
@@ -36,4 +39,16 @@ class CreateProject extends Component {
   }
 }
 
-export default CreateProject;
+const mapDispatchToProps = dispatch => {
+  return {
+    createProject: project => dispatch(createProject(project))
+  }
+}
+
+/* What happens when createProject gets called in the component?
+1- createProject (action craetor) gets called.
+2- Returns a function.
+3- The function stops the dispatching, async and carry on the dispatching again.
+*/
+
+export default connect(null, mapDispatchToProps)(CreateProject);
