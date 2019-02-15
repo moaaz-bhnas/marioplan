@@ -33,11 +33,11 @@ class Dashboard extends Component {
 const mapStateToProps = state => {
   // This object tells which props we need from the store
   if(state.firestore.ordered.projects) {
-    return{
+    return {
       projects: state.firestore.ordered.projects
     }
   } else {
-    return{
+    return {
       projects: []
     }
   }
