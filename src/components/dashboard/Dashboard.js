@@ -8,11 +8,14 @@ import { connect } from 'react-redux';
 // From 'react-redux-fb' cause we're connecting react now
 import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
+import { Redirect } from 'react-router-dom';
 
 class Dashboard extends Component {
   state = {  }
   render() {
-    const { projects } = this.props;
+    const { projects, auth } = this.props;
+    if (!auth.uid) return <Redirect to="/signin" />
+
     return (
       <div className="dashboard container">
         <div className="row">
@@ -34,11 +37,13 @@ const mapStateToProps = state => {
   // This object tells which props we need from the store
   if(state.firestore.ordered.projects) {
     return {
-      projects: state.firestore.ordered.projects
+      projects: state.firestore.ordered.projects,
+      auth: state.firebase.auth
     }
   } else {
     return {
-      projects: []
+      projects: [],
+      auth: state.firebase.auth
     }
   }
 }

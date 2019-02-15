@@ -36,3 +36,7 @@ input:not(.browser-default):focus:not([readonly]) + label,
 textarea.materialize-textarea:focus:not([readonly]) + label {
   color: #ec407a !important;
 }
+
+.row {
+  margin: 0;
+}
