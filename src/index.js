@@ -19,7 +19,9 @@ import fbConfig from './config/fbConfig'
 const store = createStore(rootReducer, 
   compose(
     applyMiddleware(thunk.withExtraArgument({getFirebase, getFirestore})), // Store enhancer 1
-    reactReduxFirebase(fbConfig, {attachAuthIsReady: true}), // Store enhancer 2
+    // useFirestoreForProfile: means I want you (firebaseReducer) to use Firestore to sync to the profile property.
+    // userProfile: where to get user profile from.
+    reactReduxFirebase(fbConfig, {attachAuthIsReady: true, useFirestoreForProfile: true, userProfile: 'users'}), // Store enhancer 2
     reduxFirestore(fbConfig) // Store enhancer 3
   )
 );
