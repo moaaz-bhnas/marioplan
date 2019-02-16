@@ -5,14 +5,17 @@
 */
 export const createProject = project => {
 	return (dispatch, getState, {getFirestore}) => { // Destructuring
+		const profile = getState().firebase.profile;
+		const authorId = getState().firebase.auth.uid;
+
 		// (1) Initialize getFirestore function and store the result in a variable
 		const firestore = getFirestore();
 		// (2) Access "projects" collection and add a document (project) to it
 		firestore.collection('projects').add({
 			...project,
-			authorFirstName: 'Moaaz',
-			authorLastName: 'Bhnas',
-			authorId: '228',
+			authorFirstName: profile.firstName,
+			authorLastName: profile.lastName,
+			authorId,
 			createdAt: new Date()
 		}).then(() => {
 			dispatch({ type: 'CREATE_PROJECT', project });
