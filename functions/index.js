@@ -29,13 +29,34 @@ exports.projectCreated = functions.firestore // Whenever
   .document('/projects/{projectId}') // a new project (document) 
   .onCreate(doc => { // is created, fire this callback function.
     
-    const project = doc.data; // data about the project (title, content, authorFirstNAme ..)
+    const project = doc.data(); // data about the project (title, content, authorFirstNAme ..)
     const notification = {
       content: 'Added a new project',
       user: `${project.authorFirstName} ${project.authorLastName}`,
       // Stores the time this notification is created in this time property
       time: admin.firestore.FieldValue.serverTimestamp() 
     }
+
     return createNotification(notification);
 
 })
+
+// The trigger here is signing up.
+exports.userJoined = functions.auth.user()
+  .onCreate(user => {
+
+    return admin.firestore().collection('users')
+      .doc(user.uid).get().then(doc => { // .get() is an asynchronous request
+
+        const newUser = doc.data();
+        const notification = {
+          content: 'Joined the party',
+          user: `${newUser.firstName} ${newUser.lastName}`,
+          time: admin.firestore.FieldValue.serverTimestamp() 
+        };
+
+        return createNotification(notification);
+
+      })
+
+});
