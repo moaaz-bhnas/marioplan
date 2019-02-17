@@ -1,8 +1,16 @@
 // We access different properties and methods on this (functions) module
 const functions = require('firebase-functions'); 
 
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
+// Since we're gonna interact with Firebase services (auth - Firestore)
+// we'll need to import admin
+const admin = require('firebase-admin');
+admin.initializeApp(functions.config().firebase); // For some reason, we'll need to initialize the app with the admin :D
+
+const createNotification = notification => {
+  return admin.firestore().collection('notifications')
+    .add(notification)
+    .then(doc => console.log('notification added ', doc));
+}
 
 /* 
 - For each function we create, we attch it to the export object
@@ -15,3 +23,19 @@ const functions = require('firebase-functions');
 exports.helloWorld = functions.https.onRequest((request, response) => {
  response.send("Hello Moaaz!");
 });
+
+// The trigger here is creating a new function.
+exports.projectCreated = functions.firestore // Whenever 
+  .document('/projects/{projectId}') // a new project (document) 
+  .onCreate(doc => { // is created, fire this callback function.
+    
+    const project = doc.data; // data about the project (title, content, authorFirstNAme ..)
+    const notification = {
+      content: 'Added a new project',
+      user: `${project.authorFirstName} ${project.authorLastName}`,
+      // Stores the time this notification is created in this time property
+      time: admin.firestore.FieldValue.serverTimestamp() 
+    }
+    return createNotification(notification);
+
+})
