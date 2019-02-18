@@ -5,11 +5,11 @@ A project management application where a group of people share the projects they
 https://marioplan-7bc2c.firebaseapp.com
  
 ## Screenshots
-![live preview](https://gph.is/g/4gBQnWZ)
+![live preview](https://media.giphy.com/media/TgH0n0a04UFLw5Fh0L/giphy.gif)
 
 ## Tech/framework used
 <b>Built with</b>
-- [ReactJS](https://reactjs.org/)[(& Redux)](https://redux.js.org/) for the front-end.
+- [ReactJS](https://reactjs.org/) [(& Redux)](https://redux.js.org/) for the front-end.
 - [Firebase](https://firebase.google.com/) for the back-end.
 
 ## Installation
