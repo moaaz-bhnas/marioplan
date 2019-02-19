@@ -42,13 +42,11 @@ exports.projectCreated = functions.firestore // Whenever
 })
 
 // The trigger here is signing up.
-exports.userJoined = functions.auth.user()
+exports.userJoined = functions.firestore
+  .document('/users/{userId}')
   .onCreate(user => {
 
-    return admin.firestore().collection('users')
-      .doc(user.uid).get().then(doc => { // .get() is an asynchronous request
-
-        const newUser = doc.data();
+        const newUser = user.data();
         const notification = {
           content: 'Joined the party',
           user: `${newUser.firstName} ${newUser.lastName}`,
@@ -56,7 +54,5 @@ exports.userJoined = functions.auth.user()
         };
 
         return createNotification(notification);
-
-      })
 
 });
