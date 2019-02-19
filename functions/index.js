@@ -18,12 +18,6 @@ const createNotification = notification => {
 - 'onRequest(the rest ..)' means that we the request is recieved o the server, respond with 'Hello ..'.
 */
 
-// This means that we can request our functions to be run via HTTP requests
-// The trigger here is going to a specific url (endpoint)
-exports.helloWorld = functions.https.onRequest((request, response) => {
- response.send("Hello Moaaz!");
-});
-
 // The trigger here is creating a new function.
 exports.projectCreated = functions.firestore // Whenever 
   .document('/projects/{projectId}') // a new project (document) 
@@ -41,7 +35,6 @@ exports.projectCreated = functions.firestore // Whenever
 
 })
 
-// The trigger here is signing up.
 exports.userJoined = functions.firestore
   .document('/users/{userId}')
   .onCreate(user => {
