@@ -9,7 +9,7 @@ https://marioplan-7bc2c.firebaseapp.com
 
 ## Tech/framework used
 <b>Built with</b>
-- [ReactJS](https://reactjs.org/) [(& Redux)](https://redux.js.org/) for the front-end.
+- [Materialize](https://materializecss.com/) and [ReactJS](https://reactjs.org/) (with [Redux](https://redux.js.org/)) for the front-end.
 - [Firebase](https://firebase.google.com/) for the back-end.
 
 ## Installation
